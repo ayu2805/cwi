@@ -1,0 +1,31 @@
+#!/bin/sh
+
+bold=$(tput bold)
+reset=$(tput sgr0)
+rm -rf cloudflare-warp_*
+echo "${bold}Package details for debian:${reset}"
+echo ""
+curl -s https://pkg.cloudflareclient.com/dists/bookworm/main/binary-amd64/Packages
+package_info=$(curl -s https://pkg.cloudflareclient.com/dists/bookworm/main/binary-amd64/Packages)
+path=$(echo "$package_info" | grep -E "^Filename:" | awk '{print $2}')
+echo "${bold}Downloading .deb file...${reset}"
+echo ""
+curl -O "https://pkg.cloudflareclient.com/$path"
+ar x cloudflare-warp_*
+tar -xvf data.tar.gz
+sudo systemctl stop warp-svc
+dir=$(pwd)
+sudo cp $dir/bin/warp-cli /bin/
+sudo cp $dir/bin/warp-svc /bin/
+sudo cp warp-svc.service /etc/systemd/system/
+sudo systemctl enable warp-svc
+sudo systemctl start warp-svc
+echo ""
+echo "${bold}Waiting for few seconds for the services...${reset}"
+sleep 3
+warp-cli delete
+echo ""
+echo "${bold}Registering WARP...${reset}"
+warp-cli register
+warp-cli connect
+rm -rf cloudflare-warp_* control.tar.gz data.tar.gz etc/ lib/ usr/ bin/ debian-binary
