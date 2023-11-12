@@ -8,6 +8,7 @@ echo ""
 curl -s https://pkg.cloudflareclient.com/dists/bookworm/main/binary-amd64/Packages
 package_info=$(curl -s https://pkg.cloudflareclient.com/dists/bookworm/main/binary-amd64/Packages)
 path=$(echo "$package_info" | grep -E "^Filename:" | awk '{print $2}')
+
 echo "${bold}Downloading .deb file...${reset}"
 echo ""
 curl -O "https://pkg.cloudflareclient.com/$path"
@@ -17,15 +18,28 @@ sudo systemctl stop warp-svc
 dir=$(pwd)
 sudo cp $dir/bin/warp-cli /bin/
 sudo cp $dir/bin/warp-svc /bin/
-sudo cp warp-svc.service /etc/systemd/system/
+sudo cp $dir/bin/warp-diag /bin/
+
+
+echo ""
+echo "${bold}Creating this .service file...${reset}"
+echo ""
+sudo rm /etc/systemd/system/warp-svc.service
+sudo touch /etc/systemd/system/warp-svc.service
+echo -e "[Unit]\nDescription=Cloudflare Warp Client Daemon\nAfter=pre-network.target\n\n[Service]\nType=simple\nExecStart=/bin/warp-svc\nDynamicUser=no\nCapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_SYS_PTRACE\nAmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_SYS_PTRACE\nRestart=always\n\n[Install]\nWantedBy=multi-user.target" | sudo tee /etc/systemd/system/warp-svc.service
 sudo systemctl enable warp-svc
 sudo systemctl start warp-svc
+
+
 echo ""
 echo "${bold}Waiting for few seconds for the services...${reset}"
+echo ""
 sleep 3
 warp-cli delete
+
 echo ""
 echo "${bold}Registering WARP...${reset}"
+echo ""
 warp-cli register
 warp-cli connect
 rm -rf cloudflare-warp_* control.tar.gz data.tar.gz etc/ lib/ usr/ bin/ debian-binary
