@@ -5,5 +5,5 @@ To install Cloudflare Warp, you can run this command, which uses *curl* to downl
 > **Warning**: Always be careful when running scripts from the Internet.
 
 ```
-curl -s -o- https://raw.githubusercontent.com/ayu2805/cwi/main/cloudflare-warp-install | bash
+bash -c "$(curl -sS https://raw.githubusercontent.com/ayu2805/usbnetboot/main/cloudflare-warp-install)"
 ```
