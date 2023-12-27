@@ -11,7 +11,7 @@ path=$(echo "$package_info" | grep -E "^Filename:" | awk '{print $2}')
 
 echo "${bold}Downloading .deb file...${reset}"
 echo ""
-curl -O "https://pkg.cloudflareclient.com/$path"
+wget -q -nc --show-progress https://pkg.cloudflareclient.com/$path
 ar x cloudflare-warp_*
 tar -xvf data.tar.gz
 echo ""
