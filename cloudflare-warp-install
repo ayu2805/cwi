@@ -3,6 +3,7 @@
 bold=$(tput bold)
 reset=$(tput sgr0)
 rm -rf cloudflare-warp_*
+echo ""
 echo "${bold}Package details for debian:${reset}"
 echo ""
 curl -s https://pkg.cloudflareclient.com/dists/bookworm/main/binary-amd64/Packages
