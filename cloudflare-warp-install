@@ -37,12 +37,12 @@ echo ""
 echo "${bold}Waiting for few seconds for the services...${reset}"
 echo ""
 sleep 3
-warp-cli delete
+warp-cli registration delete
 
 echo ""
 echo "${bold}Registering WARP...${reset}"
 echo ""
-warp-cli register
+warp-cli registeration new
 read -r -p "Do you want to connect to warp now? [y/N] " response
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
     warp-cli connect
