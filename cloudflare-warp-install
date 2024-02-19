@@ -42,7 +42,7 @@ warp-cli registration delete
 echo ""
 echo "${bold}Registering WARP...${reset}"
 echo ""
-warp-cli registeration new
+warp-cli registration new
 read -r -p "Do you want to connect to warp now? [y/N] " response
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
     warp-cli connect
