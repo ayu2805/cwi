@@ -22,16 +22,13 @@ sudo cp $dir/bin/warp-cli /bin/
 sudo cp $dir/bin/warp-svc /bin/
 sudo cp $dir/bin/warp-diag /bin/
 
-
 echo ""
-echo "${bold}Creating this .service file...${reset}"
+echo "${bold}Creating .service file...${reset}"
 echo ""
 sudo rm -f /etc/systemd/system/warp-svc.service
-sudo touch /etc/systemd/system/warp-svc.service
-echo -e "[Unit]\nDescription=Cloudflare Warp Client Daemon\nAfter=pre-network.target\n\n[Service]\nType=simple\nExecStart=/bin/warp-svc\nDynamicUser=no\nCapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_SYS_PTRACE\nAmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_SYS_PTRACE\nRestart=always\n\n[Install]\nWantedBy=multi-user.target" | sudo tee /etc/systemd/system/warp-svc.service
+sudo cp $dir/lib/systemd/system/warp-svc.service /etc/systemd/system/
 sudo systemctl enable warp-svc
 sudo systemctl start warp-svc
-
 
 echo ""
 echo "${bold}Waiting for few seconds for the services...${reset}"
