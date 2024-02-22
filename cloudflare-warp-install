@@ -25,7 +25,6 @@ sudo cp $dir/bin/warp-diag /bin/
 echo ""
 echo "${bold}Creating .service file...${reset}"
 echo ""
-sudo rm -f /etc/systemd/system/warp-svc.service
 sudo cp $dir/lib/systemd/system/warp-svc.service /etc/systemd/system/
 sudo systemctl enable warp-svc
 sudo systemctl start warp-svc
