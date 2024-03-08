@@ -10,5 +10,5 @@ bash -c "$(curl -sS https://raw.githubusercontent.com/ayu2805/cwi/main/cloudflar
 (or run this if you are facing some [issues in India](https://timesofindia.indiatimes.com/gadgets-news/github-content-domain-blocked-for-these-indian-users-reports/articleshow/96687992.cms))
 
 ```sh
-wget -q -nc --show-progress https://github.com/ayu2805/cwi/releases/download/cloudflare-warp-install/cloudflare-warp-install && bash cloudflare-warp-install && rm cloudflare-warp-install
+wget -q -nc --show-progress https://github.com/ayu2805/cwi/releases/latest/download/cloudflare-warp-install && bash cloudflare-warp-install && rm cloudflare-warp-install
 ```
