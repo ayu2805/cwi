@@ -14,7 +14,7 @@ echo "${bold}Downloading .deb file...${reset}"
 echo ""
 wget -q -nc --show-progress https://pkg.cloudflareclient.com/$path
 ar x cloudflare-warp_*
-tar -xvf data.tar.gz
+tar -xf data.tar.gz
 echo ""
 sudo systemctl stop warp-svc
 dir=$(pwd)
