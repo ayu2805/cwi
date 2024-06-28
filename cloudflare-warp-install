@@ -42,5 +42,8 @@ warp-cli registration new
 read -r -p "Do you want to connect to warp now? [y/N] " response
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
     warp-cli connect
+    echo ""
+    echo "Waiting for 5 seconds..."
+    sleep 5
 fi
 rm -rf cloudflare-warp_* control.tar.gz data.tar.gz etc/ lib/ usr/ bin/ debian-binary
