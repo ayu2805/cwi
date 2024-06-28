@@ -13,8 +13,8 @@ path=$(echo "$package_info" | grep -E "^Filename:" | awk '{print $2}')
 echo "${bold}Downloading .deb file...${reset}"
 echo ""
 wget -q -nc --show-progress https://pkg.cloudflareclient.com/$path
-ar -xq cloudflare-warp_*
-tar -xf data.tar.gz
+ar x cloudflare-warp_*
+tar -zxf data.tar.gz
 echo ""
 sudo systemctl stop warp-svc
 dir=$(pwd)
